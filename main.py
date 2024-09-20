@@ -15,8 +15,7 @@ def execute():
     weather_df = api.get_df(resp)
     print(weather_df)
     merged_df = pd.merge(weather_df, municipios_df, on='municipio')
-    print(merged_df)
-    # mun.show_data()
+    print(merged_df.head())
 
     
 

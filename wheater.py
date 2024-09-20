@@ -23,12 +23,23 @@ class WeatherAPI:
     
     def get_df(self, data):
         weather_df = pd.json_normalize(data)
-        weather_df = weather_df.rename(columns={
-            'location.name': 'municipio',
-            'location.region': 'estado',
-            'location.country': 'country',
-            'current.temp_c': 'temperatura',
-            'current.humidity': 'humedad',
-            'current.wind_kph': 'viento_kph'
+
+        print(weather_df.head())
+       
+        filtered_df = pd.DataFrame({
+            'municipio': weather_df['location.name'],
+            'estado': weather_df['location.region'],
+            'country': weather_df['location.country'],
+            'lat': weather_df['location.lat'],
+            'lon': weather_df['location.lon'],
+            'tz_id': weather_df['location.tz_id'],
+            'temperatura': weather_df['current.temp_c'],
+            'humedad': weather_df['current.humidity'],
+            'viento_kph': weather_df['current.wind_kph'],
+            'localtime_epoch': weather_df['location.localtime_epoch'],
+            'local_time': weather_df['location.localtime'],
+            'last_updated_epoch': weather_df['current.last_updated_epoch'],
+            'current_last_updated': weather_df['current.last_updated'],
+            'current_condition_text': weather_df['current.condition.text'],
         })
-        return weather_df
+        return filtered_df
